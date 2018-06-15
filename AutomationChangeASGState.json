@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "0.3",
+  "assumeRole": "{{AutomationAssumeRole}}",
+  "description": "Change the state of EC2 instances in an autoscaling group",
+  "parameters": {
+    "AutoScalingGroupName": {
+      "type": "String",
+      "description": "(Required) AutoScaling Group Name"
+    },
+    "DesiredState": {
+      "default": "",
+      "type": "String",
+      "description": "(Required) The State desired for the instances."
+    },
+    "PatchGroupValue": {
+      "default": "",
+      "type": "String",
+      "description": "(Required) The Tag value required to change the instances' status"
+    },
+    "AutomationAssumeRole": {
+      "default": "",
+      "type": "String",
+      "description": "(Required) The ARN of the role that allows Automation to perform the actions on your behalf."
+    }
+  },
+  "mainSteps": [
+    {
+      "action": "aws:invokeLambdaFunction",
+      "inputs": {
+        "FunctionName": "asg-state-change-lambda",
+        "Payload": "{\"AutoScalingGroupName\": \"{{AutoScalingGroupName}}\",\"PatchGroupValue\":\"{{PatchGroupValue}}\", \"State\": \"{{DesiredState}}\"}"
+      },
+      "maxAttempts": 1,
+      "name": "changeState",
+      "onFailure": "Abort"
+    }
+  ]
+}
