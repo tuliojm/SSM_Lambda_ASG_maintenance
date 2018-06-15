@@ -18,10 +18,10 @@ AWS Systems Manager Automation command to put/remove instance in a AutoScaling G
 - On the Lambda dashboard, click on "Create Function."
 - Select "Author From Scratch."
 - Specify the following options:
- - Name: asg-state-change-lambda
- - Runtime: select "Python 2.7"
- - Role: select "Choose an existing one"
- - Existing Role: yourRole
+ Name: asg-state-change-lambda  
+ Runtime: select "Python 2.7"  
+ Role: select "Choose an existing one"  
+ Existing Role: yourRole  
 - Click create
 - Scroll the down until the "Function Code" section.
 - In "Code entry type," select "Edit code inline."
@@ -61,7 +61,7 @@ and the following example policies (restrict according to your needs):
 - Create the Systems Manager's Patch Groups
 - Associate the Patch Baseline with the Patch Group.
 - Create the Maintenance Window with the following input Parameters:
- - AutoScalingGroupName: (The Auto Scaling Group name)
- - DesiredState: [Standby|Active] (Case sensitive, choose either Standby or Active)
- - PatchGroupValue: managed instances patch group 
- - AutomationAssumeRole: (the ARN for the IAM role. EX: arn:aws:iam::XXXXXXXXXXXX:role/myrole)
+ AutoScalingGroupName: (The Auto Scaling Group name)  
+ DesiredState: [Standby|Active] (Case sensitive, choose either Standby or Active)  
+ PatchGroupValue: managed instances patch group  
+ AutomationAssumeRole: (the ARN for the IAM role. EX: arn:aws:iam::XXXXXXXXXXXX:role/myrole)  
